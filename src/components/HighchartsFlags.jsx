@@ -5,7 +5,7 @@ import HighchartsAccessibility from "highcharts/modules/accessibility";
 import axios from "axios";
 HighchartsAccessibility(Highcharts);
 
-const HighchartsFlags = () => {
+function HighchartsFlags() {
   const [data, setData] = useState([]);
 
   const username = process.env.REACT_APP_USERNAME;
@@ -115,6 +115,6 @@ const HighchartsFlags = () => {
       )}
     </div>
   );
-};
+}
 
 export default HighchartsFlags;

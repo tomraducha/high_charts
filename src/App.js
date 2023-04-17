@@ -3,7 +3,7 @@ import DropdownRoom from './components/DropdownRoom';
 import TimeRangeSelector from './components/TimeRangeSelector';
 
 function App() {
-  const handleSelect = (option) => {
+  function handleSelect (option) {
     console.log(`Option : ${option}`);
   }
 
