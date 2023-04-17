@@ -14,7 +14,7 @@ module.exports = {
     "plugin:ramda/recommended",
     "plugin:jsdoc/recommended",
     "plugin:prettier/recommended",
-    "prettier/react",
+    "prettier",
   ],
   plugins: ["react-hooks", "promise", "ramda", "prettier"],
   parser: "babel-eslint",
@@ -82,3 +82,4 @@ module.exports = {
   },
   overrides,
 };
+

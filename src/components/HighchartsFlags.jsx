@@ -14,6 +14,8 @@ function HighchartsFlags() {
   const password = process.env.REACT_APP_PASSWORD;
   const url = process.env.REACT_APP_URL;
 
+  const variableQuiSertArien = "kshdjbksdjf";
+
   useEffect(() => {
     const url =
       "https://cdn.jsdelivr.net/gh/highcharts/highcharts@v10.3.3/samples/data/usdeur.json";
