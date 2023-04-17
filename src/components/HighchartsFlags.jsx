@@ -29,7 +29,7 @@ function HighchartsFlags() {
       let encodedAuthString = btoa(authString);
       try {
         const response = await axios.get(
-          "https://192.168.12.146:443/active_v2/history?retrieveValues=true",
+          url + "/active_v2/history?retrieveValues=true",
           {
             headers: {
               mode: "cors",
