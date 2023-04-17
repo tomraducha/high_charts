@@ -3,6 +3,8 @@ import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import HighchartsAccessibility from "highcharts/modules/accessibility";
 import axios from "axios";
+import Period from "../images/Period.svg";
+
 HighchartsAccessibility(Highcharts);
 
 function HighchartsFlags() {
@@ -100,6 +102,24 @@ function HighchartsFlags() {
         fillOpacity: 0.5,
       },
     },
+
+    title: {
+      useHTML: true,
+      text: `<img src=${Period} alt='' />`,
+      style: {
+        whiteSpace: "nowrap",
+      },
+    },
+
+    series: [
+      {
+        name: "Température",
+        data: data,
+        id: "dataseries",
+        color: "rgba(161, 234, 180)",
+        fillOpacity: 0.5,
+      },
+    ],
   };
 
   return (
