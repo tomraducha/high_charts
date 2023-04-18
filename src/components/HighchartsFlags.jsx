@@ -169,6 +169,30 @@ function HighchartsFlags() {
         color: "rgba(161, 234, 180)",
         fillOpacity: 0.5,
       },
+      {
+        yAxis: 0,
+      },
+      {
+        yAxis: 1,
+      },
+    ],
+
+    yAxis: [
+      {
+        lineWidth: 1,
+        opposite: true,
+      },
+      {
+        lineWidth: 1,
+        title: {
+          text: "Température",
+          //taille
+          style: {
+            fontSize: "15px",
+          },
+        },
+        opposite: false,
+      },
     ],
 
     // plotOptions: {
