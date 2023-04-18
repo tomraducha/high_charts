@@ -9,8 +9,6 @@ HighchartsAccessibility(Highcharts);
 
 function HighchartsFlags() {
   const [data, setData] = useState([]);
-  // const [startDate, setStartDate] = useState("");
-  // const [endDate, setEndDate] = useState("");
 
   const username = process.env.REACT_APP_USERNAME;
   const password = process.env.REACT_APP_PASSWORD;
@@ -64,15 +62,8 @@ function HighchartsFlags() {
     ],
     chart: {
       type: "line",
-      //border bottom
       borderBottom: "10px solid black",
       events: {
-        // afterSetExtremes: function (e) {
-        //   const newStartDate = Highcharts.dateFormat("%d %b %Y", e.min);
-        //   const newEndDate = Highcharts.dateFormat("%d %b %Y", e.max);
-        //   setStartDate(newStartDate);
-        //   setEndDate(newEndDate);
-        // },
         render: function () {
           const yAxis = this.yAxis[0];
           yAxis.removePlotLine("min-line");
@@ -112,9 +103,12 @@ function HighchartsFlags() {
     },
 
     rangeSelector: {
+      inputPosition: {
+        align: "center",
+        y: -40,
+      },
+
       verticalAlign: "top",
-      x: 0,
-      y: 0,
       labelStyle: {
         display: "none",
       },
@@ -131,6 +125,16 @@ function HighchartsFlags() {
           text: "Mois",
         },
         {
+          type: "month",
+          count: 3,
+          text: "3 mois",
+        },
+        {
+          type: "month",
+          count: 6,
+          text: "6 mois",
+        },
+        {
           type: "year",
           count: 1,
           text: "Année",
@@ -140,6 +144,23 @@ function HighchartsFlags() {
           text: "TimeRangeSelector",
         },
       ],
+      inputEnabled: true,
+      inputDateFormat: "%d %b %Y",
+      inputEditDateFormat: "%d %b %Y",
+      inputBoxWidth: 120,
+      inputBoxHeight: 18,
+      inputStyle: {
+        fontSize: "10px",
+      },
+      labelStyle: {
+        display: "none",
+      },
+      dateTimeLabelFormats: {
+        day: "%e %b %Y",
+        week: "%e %b %Y",
+        month: "%b %Y",
+        year: "%Y",
+      },
       selected: 4,
       buttonTheme: {
         width: 160,
@@ -157,9 +178,7 @@ function HighchartsFlags() {
 
     title: {
       useHTML: true,
-      text: `<span style="font-size: 15px; margin-right: 20px;">
-      1 Septembre 22 </span><img src=${Period} alt='' />
-      <span style="font-size: 15px; margin-left: 20px;">30 Septembre 22</span>`,
+      text: `<img src=${Period} alt='' />`,
     },
 
     series: [
@@ -187,7 +206,6 @@ function HighchartsFlags() {
         lineWidth: 1,
         title: {
           text: "Température",
-          //taille
           style: {
             fontSize: "15px",
           },
@@ -195,13 +213,6 @@ function HighchartsFlags() {
         opposite: false,
       },
     ],
-
-    // plotOptions: {
-    //   series: {
-    //     color: "rgba(161, 234, 180)",
-    //     fillOpacity: 0.5,
-    //   },
-    // },
   };
 
   return (
