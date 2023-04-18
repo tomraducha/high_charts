@@ -9,6 +9,8 @@ HighchartsAccessibility(Highcharts);
 
 function HighchartsFlags() {
   const [data, setData] = useState([]);
+  // const [startDate, setStartDate] = useState("");
+  // const [endDate, setEndDate] = useState("");
 
   const username = process.env.REACT_APP_USERNAME;
   const password = process.env.REACT_APP_PASSWORD;
@@ -63,8 +65,14 @@ function HighchartsFlags() {
     chart: {
       type: "line",
       events: {
+        // afterSetExtremes: function (e) {
+        //   const newStartDate = Highcharts.dateFormat("%d %b %Y", e.min);
+        //   const newEndDate = Highcharts.dateFormat("%d %b %Y", e.max);
+        //   setStartDate(newStartDate);
+        //   setEndDate(newEndDate);
+        // },
         render: function () {
-          var yAxis = this.yAxis[0];
+          const yAxis = this.yAxis[0];
           yAxis.addPlotLine({
             color: "green",
             value: yAxis.dataMin,
@@ -98,10 +106,9 @@ function HighchartsFlags() {
     },
 
     rangeSelector: {
-      inputEnabled: false,
-      buttonTheme: {
-        width: 60,
-      },
+      verticalAlign: "top",
+      x: 0,
+      y: 0,
       labelStyle: {
         display: "none",
       },
@@ -133,64 +140,25 @@ function HighchartsFlags() {
         },
       ],
       selected: 4,
-      buttonSpacing: 0,
-      buttonPosition: {
-        align: "left",
-      },
       buttonTheme: {
-        width: 60,
+        width: 160,
         zIndex: 99,
         "stroke-width": 1,
-        stroke: "#ccc",
-        r: 0,
+        stroke: "grey",
+        r: 2,
         style: {
-          color: "#333",
+          fontSize: "19px",
+          border: "solid 1px black",
+          color: "grey",
         },
-        states: {
-          hover: {
-            fill: "#f7f7f7",
-          },
-          select: {
-            fill: "#ccc",
-          },
-        },
-      },
-      dropdownWidth: 80,
-      dropdownAlign: "right",
-      dropdownButtonPosition: {
-        align: "right",
-        x: -36,
-        y: -24,
-      },
-      dropdownItems: [
-        {
-          text: "Zoom avant",
-          onclick: function () {
-            this.zoomIn();
-          },
-        },
-        {
-          text: "Zoom arrière",
-          onclick: function () {
-            this.zoomOut();
-          },
-        },
-      ],
-    },
-
-    plotOptions: {
-      series: {
-        color: "rgba(161, 234, 180)",
-        fillOpacity: 0.5,
       },
     },
 
     title: {
       useHTML: true,
-      text: `<img src=${Period} alt='' />`,
-      style: {
-        whiteSpace: "nowrap",
-      },
+      text: `<span style="font-size: 15px; margin-right: 20px;">
+      1 Septembre 22 </span><img src=${Period} alt='' />
+      <span style="font-size: 15px; margin-left: 20px;">30 Septembre 22</span>`,
     },
 
     series: [
@@ -202,6 +170,13 @@ function HighchartsFlags() {
         fillOpacity: 0.5,
       },
     ],
+
+    // plotOptions: {
+    //   series: {
+    //     color: "rgba(161, 234, 180)",
+    //     fillOpacity: 0.5,
+    //   },
+    // },
   };
 
   return (

@@ -8,7 +8,7 @@ function App() {
 
   const options = ['Option 1', 'Option 2', 'Option 3'];
   return (
-    <div>
+    <div className='app'>
       <DropdownRoom options={options} onSelect={handleSelect} />
       <HighchartsFlags />
     </div>

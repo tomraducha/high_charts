@@ -6,13 +6,15 @@ function DropdownRoom({ options, onSelect }) {
   }
 
   return (
-    <select onChange={(e) => handleOptionSelect(e.target.value)}>
-      {options.map((option) => (
-        <option key={option} value={option}>
-          Pollux
-        </option>
-      ))}
-    </select>
+    <div className="drop-down-room">
+      <select onChange={(e) => handleOptionSelect(e.target.value)}>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            Pollux
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }
 
