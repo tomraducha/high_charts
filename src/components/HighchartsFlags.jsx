@@ -64,6 +64,8 @@ function HighchartsFlags() {
     ],
     chart: {
       type: "line",
+      //border bottom
+      borderBottom: "10px solid black",
       events: {
         // afterSetExtremes: function (e) {
         //   const newStartDate = Highcharts.dateFormat("%d %b %Y", e.min);
@@ -73,7 +75,10 @@ function HighchartsFlags() {
         // },
         render: function () {
           const yAxis = this.yAxis[0];
+          yAxis.removePlotLine("min-line");
+          yAxis.removePlotLine("max-line");
           yAxis.addPlotLine({
+            id: "min-line",
             color: "green",
             value: yAxis.dataMin,
             width: 2,
@@ -88,6 +93,7 @@ function HighchartsFlags() {
             },
           });
           yAxis.addPlotLine({
+            id: "max-line",
             color: "red",
             value: yAxis.dataMax,
             width: 2,
@@ -117,22 +123,17 @@ function HighchartsFlags() {
         {
           type: "day",
           count: 1,
-          text: "1j",
-        },
-        {
-          type: "week",
-          count: 1,
-          text: "1s",
+          text: "Jour",
         },
         {
           type: "month",
           count: 1,
-          text: "1m",
+          text: "Mois",
         },
         {
           type: "year",
           count: 1,
-          text: "1a",
+          text: "Année",
         },
         {
           type: "all",
