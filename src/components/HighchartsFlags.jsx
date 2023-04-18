@@ -14,8 +14,6 @@ function HighchartsFlags() {
   const password = process.env.REACT_APP_PASSWORD;
   const url = process.env.REACT_APP_URL;
 
-  const variableQuiSertArien = "kshdjbksdjf";
-
   useEffect(() => {
     const url =
       "https://cdn.jsdelivr.net/gh/highcharts/highcharts@v10.3.3/samples/data/usdeur.json";
@@ -98,6 +96,88 @@ function HighchartsFlags() {
         },
       },
     },
+
+    rangeSelector: {
+      inputEnabled: false,
+      buttonTheme: {
+        width: 60,
+      },
+      labelStyle: {
+        display: "none",
+      },
+      dropdown: "always",
+      buttons: [
+        {
+          type: "day",
+          count: 1,
+          text: "1j",
+        },
+        {
+          type: "week",
+          count: 1,
+          text: "1s",
+        },
+        {
+          type: "month",
+          count: 1,
+          text: "1m",
+        },
+        {
+          type: "year",
+          count: 1,
+          text: "1a",
+        },
+        {
+          type: "all",
+          text: "TimeRangeSelector",
+        },
+      ],
+      selected: 4,
+      buttonSpacing: 0,
+      buttonPosition: {
+        align: "left",
+      },
+      buttonTheme: {
+        width: 60,
+        zIndex: 99,
+        "stroke-width": 1,
+        stroke: "#ccc",
+        r: 0,
+        style: {
+          color: "#333",
+        },
+        states: {
+          hover: {
+            fill: "#f7f7f7",
+          },
+          select: {
+            fill: "#ccc",
+          },
+        },
+      },
+      dropdownWidth: 80,
+      dropdownAlign: "right",
+      dropdownButtonPosition: {
+        align: "right",
+        x: -36,
+        y: -24,
+      },
+      dropdownItems: [
+        {
+          text: "Zoom avant",
+          onclick: function () {
+            this.zoomIn();
+          },
+        },
+        {
+          text: "Zoom arrière",
+          onclick: function () {
+            this.zoomOut();
+          },
+        },
+      ],
+    },
+
     plotOptions: {
       series: {
         color: "rgba(161, 234, 180)",
