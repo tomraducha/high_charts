@@ -1,57 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Highcharts from "highcharts/highstock";
-import HighchartsReact from "highcharts-react-official";
-import HighchartsAccessibility from "highcharts/modules/accessibility";
-import axios from "axios";
 import Period from "../images/Period.svg";
-
+import Highcharts from "highcharts/highstock";
+import HighchartsAccessibility from "highcharts/modules/accessibility";
 HighchartsAccessibility(Highcharts);
 
-function HighchartsFlags() {
-  const [data, setData] = useState([]);
-
-  const username = process.env.REACT_APP_USERNAME;
-  const password = process.env.REACT_APP_PASSWORD;
-  const url = process.env.REACT_APP_URL;
-
-  useEffect(() => {
-    const url =
-      "https://cdn.jsdelivr.net/gh/highcharts/highcharts@v10.3.3/samples/data/usdeur.json";
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((json) => {
-        setData(json);
-      });
-  }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      let authString = username + ":" + password;
-      let encodedAuthString = btoa(authString);
-      try {
-        const response = await axios.get(
-          url + "/active_v2/history?retrieveValues=true",
-          {
-            headers: {
-              mode: "cors",
-              Authorization: "Basic cG9zdG1hbjpQb3N0bWFuMTIz",
-            },
-          }
-        );
-        const responseData = response.data;
-        console.log(
-          "🚀 ~ file: HighchartsFlags.jsx:36 ~ fetchData ~ responseDa-ta:",
-          responseData
-        );
-        // setData(responseData);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchData();
-  }, []);
-
+export default function useInitialize(data) {
   const options = {
     series: [
       {
@@ -61,7 +13,10 @@ function HighchartsFlags() {
       },
     ],
     chart: {
+      className: "chart",
+      height: "800px",
       type: "line",
+      reflow: true,
       borderBottom: "10px solid black",
       events: {
         render: function () {
@@ -152,9 +107,6 @@ function HighchartsFlags() {
       inputStyle: {
         fontSize: "10px",
       },
-      labelStyle: {
-        display: "none",
-      },
       dateTimeLabelFormats: {
         day: "%e %b %Y",
         week: "%e %b %Y",
@@ -179,6 +131,8 @@ function HighchartsFlags() {
     title: {
       useHTML: true,
       text: `<img src=${Period} alt='' />`,
+      x: -28,
+      y: 10,
     },
 
     series: [
@@ -214,20 +168,5 @@ function HighchartsFlags() {
       },
     ],
   };
-
-  return (
-    <div>
-      {data.length > 0 ? (
-        <HighchartsReact
-          highcharts={Highcharts}
-          constructorType={"stockChart"}
-          options={options}
-        />
-      ) : (
-        <div>Loading...</div>
-      )}
-    </div>
-  );
+  return options;
 }
-
-export default HighchartsFlags;
