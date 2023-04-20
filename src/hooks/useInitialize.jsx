@@ -39,7 +39,7 @@ export default function useInitialize(data) {
             dashStyle: "shortdash",
             zIndex: 3,
             label: {
-              text: "Minimum",
+              text: "Min",
               align: "right",
               x: -10,
               style: {
@@ -54,7 +54,7 @@ export default function useInitialize(data) {
             width: 2,
             dashStyle: "shortdash",
             label: {
-              text: "Maximum",
+              text: "Max",
               align: "right",
               x: -10,
               style: {
@@ -138,7 +138,7 @@ export default function useInitialize(data) {
 
     yAxis: [
       {
-        floor: 16,
+        floor: 15,
         ceiling: 100,
       },
 
