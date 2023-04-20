@@ -10,12 +10,20 @@ export default function useInitialize(data) {
         name: "Température",
         data: data,
         id: "dataseries",
+        color: "rgba(161, 234, 180)",
+        fillOpacity: 0.5,
+      },
+      {
+        yAxis: 0,
+      },
+      {
+        yAxis: 1,
       },
     ],
     chart: {
       className: "chart",
       height: "800px",
-      type: "line",
+      type: "area",
       reflow: true,
       borderBottom: "10px solid black",
       events: {
@@ -29,6 +37,7 @@ export default function useInitialize(data) {
             value: yAxis.dataMin,
             width: 2,
             dashStyle: "shortdash",
+            zIndex: 3,
             label: {
               text: "Minimum",
               align: "right",
@@ -100,23 +109,15 @@ export default function useInitialize(data) {
         },
       ],
       inputEnabled: true,
-      inputDateFormat: "%d %b %Y",
-      inputEditDateFormat: "%d %b %Y",
-      inputBoxWidth: 120,
+      inputDateFormat: "%e %B %y",
+      inputBoxWidth: 160,
       inputBoxHeight: 18,
       inputStyle: {
-        fontSize: "10px",
+        fontSize: "15px",
+        color: "black",
       },
-      dateTimeLabelFormats: {
-        day: "%e %b %Y",
-        week: "%e %b %Y",
-        month: "%b %Y",
-        year: "%Y",
-      },
-      selected: 4,
+      selected: 7,
       buttonTheme: {
-        width: 160,
-        zIndex: 99,
         "stroke-width": 1,
         stroke: "grey",
         r: 2,
@@ -135,31 +136,20 @@ export default function useInitialize(data) {
       y: 10,
     },
 
-    series: [
-      {
-        name: "Température",
-        data: data,
-        id: "dataseries",
-        color: "rgba(161, 234, 180)",
-        fillOpacity: 0.5,
-      },
-      {
-        yAxis: 0,
-      },
-      {
-        yAxis: 1,
-      },
-    ],
-
     yAxis: [
       {
-        lineWidth: 1,
-        opposite: true,
+        floor: 16,
+        ceiling: 100,
+      },
+
+      {
+        lineWidth: 0,
+        opposite: false,
       },
       {
-        lineWidth: 1,
         title: {
           text: "Température",
+
           style: {
             fontSize: "15px",
           },

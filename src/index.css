@@ -1,12 +1,13 @@
 .app {
   height: 100vh;
   border: 1px solid white;
-  box-shadow: rgba(9, 12, 13, 0.3) 10px 12px 9px;
+  box-shadow: rgba(21, 23, 26, 0.3) 6px 14px 11px 6px;
   padding: 40px;
   margin: 20px;
   box-sizing: border-box;
-}
+  border-radius: 10px;
 
+}
 
 .drop-down-room {
     display: flex;
@@ -14,11 +15,10 @@
 } 
 
 .drop-down-room select {
-
+  border-radius: 4px;
   width: 185px;
   margin: 10px;
   padding: 5px 5px;
-  box-shadow: 0 0 5px rgba(102, 101, 101, 0.5);
 }
 
 .highcharts-container {

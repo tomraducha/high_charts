@@ -1,52 +1,44 @@
 import { useEffect, useState } from "react";
 import DropdownRoom from "./components/DropdownRoom";
 import HighchartsFlags from "./components/HighChartsFlags/HighchartsFlags";
-// import axios from "axios";
+import axios from "axios";
 
 function App() {
   const [data, setData] = useState([]);
-
-  // const username = process.env.REACT_APP_USERNAME;
-  // const password = process.env.REACT_APP_PASSWORD;
-  // const url = process.env.REACT_APP_URL;
+  console.log("🚀 ~ file: App.js:8 ~ App ~ data:", data);
+  // const [floorMin, setFloorMin] = useState(0);
 
   useEffect(() => {
-    const url =
-      "https://cdn.jsdelivr.net/gh/highcharts/highcharts@v10.3.3/samples/data/usdeur.json";
+    const username = process.env.REACT_APP_USERNAME;
+    const password = process.env.REACT_APP_PASSWORD;
+    async function fetchData() {
+      let authString = username + ":" + password;
+      let encodedAuthString = btoa(authString);
+      try {
+        const response = await axios.get(
+          "https://192.168.12.146:443/v2/history?retrieveValues=true&period=lastYear",
+          {
+            headers: {
+              mode: "cors",
+              Authorization: "Basic cG9zdG1hbjpQb3N0bWFuMTIz",
+            },
+          }
+        );
+        const responseData = response.data;
+        const tableau = responseData[8].data;
+        const tableauTransforme = tableau.map((objet) => {
+          const timestamp = new Date(objet.Timestamp).getTime();
+          const valeur = objet.Value;
+          return [timestamp, valeur];
+        });
 
-    fetch(url)
-      .then((response) => response.json())
-      .then((json) => {
-        setData(json);
-      });
+        setData(tableauTransforme);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
   }, []);
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     let authString = username + ":" + password;
-  //     let encodedAuthString = btoa(authString);
-  //     try {
-  //       const response = await axios.get(
-  //         url + "/active_v2/history?retrieveValues=true",
-  //         {
-  //           headers: {
-  //             mode: "cors",
-  //             Authorization: "Basic cG9zdG1hbjpQb3N0bWFuMTIz",
-  //           },
-  //         }
-  //       );
-  //       const responseData = response.data;
-  //       console.log(
-  //         "🚀 ~ file: HighchartsFlags.jsx:36 ~ fetchData ~ responseDa-ta:",
-  //         responseData
-  //       );
-  //       // setData(responseData);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
 
   function handleSelect(option) {
     console.log(`Option : ${option}`);
