@@ -1,6 +1,6 @@
 import React from "react";
 
-function DropdownRoom({ options, onSelect }) {
+function DropdownRoom({ onSelect }) {
   function handleOptionSelect(option) {
     onSelect(option);
   }
@@ -8,11 +8,10 @@ function DropdownRoom({ options, onSelect }) {
   return (
     <div className="drop-down-room">
       <select onChange={(e) => handleOptionSelect(e.target.value)}>
-        {options.map((option) => (
-          <option key={option} value={option}>
-            Pollux
-          </option>
-        ))}
+        <option value="Pollux">Pollux</option>
+        <option value="Sirius">Sirius</option>
+        <option value="Proxima">Proxima</option>
+        <option value="Scuti">Scuti</option>
       </select>
     </div>
   );

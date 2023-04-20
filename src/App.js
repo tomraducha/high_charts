@@ -5,8 +5,25 @@ import axios from "axios";
 
 function App() {
   const [data, setData] = useState([]);
-  console.log("🚀 ~ file: App.js:8 ~ App ~ data:", data);
-  // const [floorMin, setFloorMin] = useState(0);
+  const [selectedRoom, setSelectedRoom] = useState("Pollux");
+  const [floor, setFloor] = useState(0);
+  console.log("🚀 ~ file: App.js:10 ~ App ~ floor:", floor);
+
+  function getFloorMin() {
+    const floorMin = Math.min(...data.flat());
+    setFloor(floorMin);
+  }
+
+  const rooms = {
+    Pollux: "o0TbJuxtrLPSEIP7wwfox",
+    Sirius: "A0TbJwui7R67wG9Hi6NF3",
+    Proxima: "d0TbJwvYj4lzXFIBUuvlH",
+    Scuti: "d0TbJwwcmL1LP8OpPDrAE",
+  };
+
+  function getRoomId(roomName) {
+    return rooms[roomName];
+  }
 
   useEffect(() => {
     const username = process.env.REACT_APP_USERNAME;
@@ -14,40 +31,48 @@ function App() {
     async function fetchData() {
       let authString = username + ":" + password;
       let encodedAuthString = btoa(authString);
-      try {
-        const response = await axios.get(
-          "https://192.168.12.146:443/v2/history?retrieveValues=true&period=lastYear",
-          {
-            headers: {
-              mode: "cors",
-              Authorization: "Basic cG9zdG1hbjpQb3N0bWFuMTIz",
-            },
-          }
-        );
-        const responseData = response.data;
-        const tableau = responseData[8].data;
-        const tableauTransforme = tableau.map((objet) => {
-          const timestamp = new Date(objet.Timestamp).getTime();
-          const valeur = objet.Value;
-          return [timestamp, valeur];
-        });
+      const roomId = getRoomId(selectedRoom);
+      console.log("🚀 ~ file: App.js:27 ~ fetchData ~ roomId:", roomId);
+      if (roomId) {
+        try {
+          const response = await axios.get(
+            `https://192.168.12.146:443/v2/history/${roomId}?retrieveValues=true&period=lastYear`,
+            {
+              headers: {
+                mode: "cors",
+                Authorization: "Basic " + encodedAuthString,
+              },
+            }
+          );
+          const responseData = response.data;
+          console.log(
+            "🚀 ~ file: App.js:40 ~ fetchData ~ responseData:",
+            responseData
+          );
+          const tableau = responseData[0].data;
+          const tableauTransforme = tableau.map((objet) => {
+            const timestamp = new Date(objet.Timestamp).getTime();
+            const valeur = objet.Value;
+            return [timestamp, valeur];
+          });
 
-        setData(tableauTransforme);
-      } catch (error) {
-        console.error(error);
+          setData(tableauTransforme);
+        } catch (error) {
+          console.error(error);
+        }
       }
     }
     fetchData();
+    getFloorMin();
   }, []);
 
   function handleSelect(option) {
-    console.log(`Option : ${option}`);
+    setSelectedRoom(option);
   }
 
-  const options = ["Option 1", "Option 2", "Option 3"];
   return (
     <div className="app">
-      <DropdownRoom options={options} onSelect={handleSelect} />
+      <DropdownRoom onSelect={handleSelect} />
       <HighchartsFlags data={data} />
     </div>
   );
