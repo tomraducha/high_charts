@@ -5,21 +5,6 @@ HighchartsAccessibility(Highcharts);
 
 export default function useInitialize(data) {
   const options = {
-    series: [
-      {
-        name: "Température",
-        data: data,
-        id: "dataseries",
-        color: "rgba(161, 234, 180)",
-        fillOpacity: 0.5,
-      },
-      {
-        yAxis: 0,
-      },
-      {
-        yAxis: 1,
-      },
-    ],
     chart: {
       className: "chart",
       height: "800px",
@@ -33,7 +18,7 @@ export default function useInitialize(data) {
           yAxis.removePlotLine("max-line");
           yAxis.addPlotLine({
             id: "min-line",
-            color: "green",
+            color: "rgba(41, 197, 104)",
             value: yAxis.dataMin,
             width: 2,
             dashStyle: "shortdash",
@@ -42,9 +27,6 @@ export default function useInitialize(data) {
               text: "Min",
               align: "right",
               x: -10,
-              style: {
-                color: "green",
-              },
             },
           });
           yAxis.addPlotLine({
@@ -129,13 +111,6 @@ export default function useInitialize(data) {
       },
     },
 
-    title: {
-      useHTML: true,
-      text: `<img src=${Period} alt='' />`,
-      x: -28,
-      y: 10,
-    },
-
     yAxis: [
       {
         floor: 15,
@@ -157,6 +132,47 @@ export default function useInitialize(data) {
         opposite: false,
       },
     ],
+
+    series: [
+      {
+        name: "Temp",
+        data: data,
+        id: "dataseries",
+        color: "rgba(161, 234, 180)",
+      },
+      {
+        yAxis: 0,
+      },
+      {
+        yAxis: 1,
+      },
+    ],
+
+    title: {
+      useHTML: true,
+      text: `<img src=${Period} alt='' />`,
+      x: -28,
+      y: 10,
+    },
+
+    tooltip: {
+      valueSuffix: "°C",
+      backgroundColor: "rgba(161, 234, 180, 0.8)",
+      borderColor: "rgba(161, 234, 180)",
+      borderRadius: 20,
+      borderWidth: 2,
+      shadow: false,
+      style: {
+        color: "green",
+        fontSize: "15px",
+      },
+
+      formatter: function () {
+        const date = Highcharts.dateFormat("%e %B %Y", this.x);
+        const temp = this.y;
+        return `<b>${date}</b><br>Temp: ${temp}°C`;
+      },
+    },
   };
   return options;
 }
