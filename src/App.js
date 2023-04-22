@@ -7,7 +7,6 @@ function App() {
   const [data, setData] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState("Pollux");
   const [floor, setFloor] = useState(0);
-  console.log("🚀 ~ file: App.js:10 ~ App ~ floor:", floor);
 
   function getFloorMin() {
     const floorMin = Math.min(...data.flat());
@@ -32,7 +31,6 @@ function App() {
       let authString = username + ":" + password;
       let encodedAuthString = btoa(authString);
       const roomId = getRoomId(selectedRoom);
-      console.log("🚀 ~ file: App.js:27 ~ fetchData ~ roomId:", roomId);
       if (roomId) {
         try {
           const response = await axios.get(
@@ -45,10 +43,6 @@ function App() {
             }
           );
           const responseData = response.data;
-          console.log(
-            "🚀 ~ file: App.js:40 ~ fetchData ~ responseData:",
-            responseData
-          );
           const tableau = responseData[0].data;
           const tableauTransforme = tableau.map((objet) => {
             const timestamp = new Date(objet.Timestamp).getTime();
@@ -64,7 +58,7 @@ function App() {
     }
     fetchData();
     getFloorMin();
-  }, []);
+  }, [selectedRoom]);
 
   function handleSelect(option) {
     setSelectedRoom(option);
