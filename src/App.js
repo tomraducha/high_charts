@@ -28,8 +28,8 @@ function App() {
     const username = process.env.REACT_APP_USERNAME;
     const password = process.env.REACT_APP_PASSWORD;
     async function fetchData() {
-      let authString = username + ":" + password;
-      let encodedAuthString = btoa(authString);
+      const authString = username + ":" + password;
+      const encodedAuthString = btoa(authString);
       const roomId = getRoomId(selectedRoom);
       if (roomId) {
         try {
@@ -43,14 +43,14 @@ function App() {
             }
           );
           const responseData = response.data;
-          const tableau = responseData[0].data;
-          const tableauTransforme = tableau.map((objet) => {
+          const array = responseData[0].data;
+          const arrayTransforme = array.map((objet) => {
             const timestamp = new Date(objet.Timestamp).getTime();
-            const valeur = objet.Value;
-            return [timestamp, valeur];
+            const value = objet.Value;
+            return [timestamp, value];
           });
 
-          setData(tableauTransforme);
+          setData(arrayTransforme);
         } catch (error) {
           console.error(error);
         }

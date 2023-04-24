@@ -1,7 +1,5 @@
 import Period from "../images/Period.svg";
 import Highcharts from "highcharts/highstock";
-import HighchartsAccessibility from "highcharts/modules/accessibility";
-HighchartsAccessibility(Highcharts);
 
 export default function useInitialize(data) {
   const options = {
